@@ -13,7 +13,7 @@ before_install:
   - docker build -t "${DOCKER_USERNAME}/udagram-api-feed:v1" ./udagram-api-feed
   - docker build -t "${DOCKER_USERNAME}/udagram-api-user:v1" ./udagram-api-user
   - docker build -t "${DOCKER_USERNAME}/udagram-frontend:v1" ./udagram-frontend
-  - docker build -t "${DOCKER_USERNAME}/reverseproxy:v1" ./reverseproxy
+  - docker build -t "${DOCKER_USERNAME}/reverseproxy:v1" ./udagram-reverseproxy
 
 script:
   - echo "skipping tests"
