@@ -1,0 +1,38 @@
+# on push to main branch build docker image from the following directory
+# udagram-api-feed
+# udagram-api-user
+# udagram-frontend
+# reverseproxy
+# and push it to docker hub
+
+
+services:
+  - docker
+
+before_install:
+  - docker build -t "${$DOCKER_USERNAME}/udagram-api-feed:v1" ./udagram-api-feed
+  - docker build -t "${DOCKER_USERNAME}/udagram-api-user:v1" ./udagram-api-user
+  - docker build -t "${DOCKER_USERNAME}/udagram-frontend:v1" ./udagram-frontend
+  - docker build -t "${DOCKER_USERNAME}/reverseproxy:v1" ./reverseproxy
+
+script:
+  - echo "skipping tests"
+
+after_success:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push "${DOCKER_USERNAME}/udagram-api-feed:v1"
+  - docker push "${DOCKER_USERNAME}/udagram-api-user:v1"
+  - docker push "${DOCKER_USERNAME}/udagram-frontend:v1"
+  - docker push "${DOCKER_USERNAME}/reverseproxy:v1"
+
+# deploy:
+#   provider: elasticbeanstalk
+#   region: "us-east-1"
+#   app: "udagram"
+#   env: "Udagram-env"
+#   bucket_name: "elasticbeanstalk-us-east-1-XXXXXXX"
+#   bucket_path: "udagram"
+#   on:
+#     branch: main
+#   access_key_id: $AWS_ACCESS_KEY
+#   secret_access_key: $AWS_SECRET_KEY
