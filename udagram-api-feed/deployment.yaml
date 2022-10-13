@@ -1,0 +1,29 @@
+#deployment for feed service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-feed
+  labels:
+    app: backend-feed
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backend-feed
+  template:
+    metadata:
+      labels:
+        app: backend-feed
+    spec:
+      containers:
+        - name: backend-feed
+          image: abbeyseto/udagram-api-feed:v1
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - secretRef:
+                name: env-secret
+            - secretRef:
+                name: aws-secret
+            - configMapRef:
+                name: env-configmap

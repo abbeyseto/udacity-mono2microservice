@@ -1,0 +1,15 @@
+# service for frontend service
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  labels:
+    app: frontend
+spec:
+  type: NodePort
+  ports:
+    - port: 8100
+      targetPort: 8100
+      nodePort: 31002
+  selector:
+    app: frontend

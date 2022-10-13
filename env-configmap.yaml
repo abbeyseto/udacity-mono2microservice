@@ -1,0 +1,14 @@
+# config map for environment variables
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: env-configmap
+data:
+  # environment variables for the api-feed service
+  API_FEED_HOST: "http://localhost:8080"
+  # environment variables for the api-user service
+  API_USER_HOST: "http://localhost:8080"
+  # environment variables for the frontend service
+  FRONTEND_HOST: "http://localhost:8100"
+  # environment variables for the reverseproxy service
+  REVERSEPROXY_HOST: "http://localhost:8080"

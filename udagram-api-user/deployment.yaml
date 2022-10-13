@@ -1,0 +1,29 @@
+# deployment for user service
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-user
+  labels:
+    app: backend-user
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend-user
+  template:
+    metadata:
+      labels:
+        app: backend-user
+    spec:
+      containers:
+        - name: backend-user
+          image: abbeyseto/udagram-api-user:v1
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - secretRef:
+                name: env-secret
+            - secretRef:
+                name: aws-secret
+            - configMapRef:
+                name: env-configmap
