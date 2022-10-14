@@ -25,3 +25,8 @@ spec:
                 name: env-secret
             - configMapRef:
                 name: env-configmap
+          resources:
+            limits:
+              cpu: 500m
+            requests:
+              cpu: 200m
