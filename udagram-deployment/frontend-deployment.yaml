@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: abbeyseto/udagram-frontend:v1
+          image: abbeyseto/udagram-frontend:v2
           ports:
             - containerPort: 8100
           envFrom:

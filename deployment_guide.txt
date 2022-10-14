@@ -1,0 +1,22 @@
+##### Apply env variables and secrets ####
+kubectl apply -f aws-secret.yaml
+kubectl apply -f env-secret.yaml
+kubectl apply -f env-configmap.yaml
+
+##### Apply all deployments and services ####
+kubectl apply -f udagram-deployment/
+
+##### Check all deployments and services, create LoadBalancer and wait for all pods to be ready #### 
+kubectl get deployments
+kubectl expose deployment frontend --type=LoadBalancer --name=publicfrontend
+kubectl expose deployment reverseproxy --type=LoadBalancer --name=publicreverseproxy
+kubectl get services 
+kubectl get pods
+
+### Run these commands from the /udagram-frontend directory ####
+docker build . -t abbeyseto/udagram-frontend:vXXX
+docker push abbeyseto/udagram-frontend:vXXX
+
+# Run these commands from the /udagram-deployment directory
+# Rolling update the containers of "frontend" deployment
+kubectl set image deployment frontend frontend=abbeyseto/udagram-frontend:vXXX
