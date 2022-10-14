@@ -14,9 +14,24 @@ kubectl get services
 kubectl get pods
 
 ### Run these commands from the /udagram-frontend directory ####
-docker build . -t abbeyseto/udagram-frontend:vXXX
-docker push abbeyseto/udagram-frontend:vXXX
+docker build . -t abbeyseto/udagram-frontend:v2
+docker push abbeyseto/udagram-frontend:v2
 
 # Run these commands from the /udagram-deployment directory
 # Rolling update the containers of "frontend" deployment
-kubectl set image deployment frontend frontend=abbeyseto/udagram-frontend:vXXX
+kubectl set image deployment frontend frontend=abbeyseto/udagram-frontend:v2
+
+aws s3api put-bucket-policy --bucket udacity-mono2micro-dev --policy file://policy.json
+policy.json:
+{
+"Version":"2012-10-17",
+    "Statement":[
+    {
+        "Sid":"Stmt1625306057759",
+        "Principal":"*",
+        "Action":"s3:*",
+        "Effect":"Allow",
+        "Resource":"arn:aws:s3:::udacity-mono2micro-dev"
+    }
+    ]
+} 

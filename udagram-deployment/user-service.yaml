@@ -6,11 +6,8 @@ metadata:
   labels:
     app: backend-user
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
     - port: 8080
       targetPort: 8080
-      nodePort: 31001
-  selector:
-    app: backend-user
     
